@@ -8,8 +8,7 @@ from publications.serializers import PublicationSerializer
 
 @api_view(['POST'])
 def populate(request):
-    for record in request.data:
-        serializer = PublicationSerializer(data=record)
+        serializer = PublicationSerializer(many=True, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

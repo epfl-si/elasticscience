@@ -15,7 +15,7 @@ class Publication(models.Model):
     title = models.CharField(max_length=200)
     doi = models.CharField(max_length=200)
     pub_date = models.DateField()
-    authors = models.ManyToManyField(Author)
+    authors = models.CharField(max_length=200)
 
     def __str__(self):
         return self.title
@@ -28,7 +28,8 @@ class Publication(models.Model):
             meta={'id': self.id},
             title=self.title,
             doi=self.doi,
-            pub_date=self.pub_date
+            pub_date=self.pub_date,
+            authors=self.authors
         )
 
         obj.save(index='publications')  # Saves the object to ES.

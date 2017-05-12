@@ -11,6 +11,7 @@ class PublicationIndex(DocType):
     title = Text()
     doi = Text()
     pub_date = Date()
+    authors = Text()
 
 
 def bulk_indexing():

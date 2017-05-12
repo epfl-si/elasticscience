@@ -6,4 +6,4 @@ from .models import Publication
 class PublicationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Publication
-        fields = ('title', 'pub_date')
+        fields = ('title', 'doi', 'pub_date', 'authors')

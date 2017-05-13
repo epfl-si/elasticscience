@@ -18,20 +18,15 @@ def populate(request):
 
 
 @api_view(['GET'])
-def exact(request, author):
-    publications = [hit.get('_source') for hit in search_exact(author).hits.hits]
+def search(request, author, match):
+    if match == 'exact':
+        hits = search_exact(author).hits.hits
+    elif match == 'partial':
+        hits = search_partial(author).hits.hits
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    serializer = PublicationSerializer(many=True, data=publications)
-
-    if serializer.is_valid():
-        return Response(serializer.data)
-
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET'])
-def partial(request, author):
-    publications = [hit.get('_source') for hit in search_partial(author).hits.hits]
+    publications = [hit.get('_source') for hit in hits]
 
     serializer = PublicationSerializer(many=True, data=publications)
 

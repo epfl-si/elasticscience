@@ -24,8 +24,8 @@ def bulk_indexing():
 
 
 def search_partial(author):
-    return Search(index='publications').query('wildcard', authors='*%s*' % author).execute()
+    return Search(index='publications').query('wildcard', authors='*%s*' % author).execute().hits.hits
 
 
 def search_exact(author):
-    return Search(index='publications').query('match', authors='%s' % author).execute()
+    return Search(index='publications').query('match', authors='%s' % author).execute().hits.hits

@@ -20,9 +20,9 @@ def populate(request):
 @api_view(['GET'])
 def search(request, author, match):
     if match == 'exact':
-        hits = search_exact(author).hits.hits
+        hits = search_exact(author)
     elif match == 'partial':
-        hits = search_partial(author).hits.hits
+        hits = search_partial(author)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
 

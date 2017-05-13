@@ -23,5 +23,9 @@ def bulk_indexing():
                              models.Publication.objects.all().iterator()))
 
 
-def search(author):
-    return Search(index='publications').query('match', authors=author).execute()
+def search_partial(author):
+    return Search(index='publications').query('wildcard', authors='*%s*' % author).execute()
+
+
+def search_exact(author):
+    return Search(index='publications').query('match', authors='%s' % author).execute()
